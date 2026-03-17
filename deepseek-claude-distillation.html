@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepSeek تسرق عقل Claude — قصة ١٦ مليون محادثة مزيفة — مدار</title>
+  <meta name="description" content="كيف استخدمت DeepSeek وشركتان صينيتان ٢٤ ألف حساب مزيف لسرقة قدرات Claude؟ تحليل من مدار.">
+  <meta name="theme-color" content="#06060C">
+
+  <meta property="og:title" content="DeepSeek تسرق عقل Claude — قصة ١٦ مليون محادثة مزيفة">
+  <meta property="og:description" content="كيف استخدمت DeepSeek وشركتان صينيتان ٢٤ ألف حساب مزيف لسرقة قدرات Claude؟">
+  <meta property="og:type" content="article">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Noto+Kufi+Arabic:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: rgba(99,102,241,0.3); color: #fff; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #06060C;
+      color: #D0D0D0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.9;
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .animate { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,6,12,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 14px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-logo { color: #6366F1; font-size: 20px; font-weight: 800; }
+    .nav-name { font-family: 'Noto Kufi Arabic', sans-serif; font-weight: 800; font-size: 16px; color: #F5F5F5; }
+    .nav-back {
+      font-family: 'Tajawal', sans-serif; font-size: 13px; color: #6366F1;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-back:hover { color: #818CF8; }
+
+    .article-header {
+      max-width: 800px; margin: 0 auto;
+      padding: 120px 28px 40px;
+    }
+    .article-tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      color: #EF4444; background: rgba(239,68,68,0.1);
+      padding: 4px 12px; border-radius: 5px; margin-bottom: 20px;
+    }
+    .article-title {
+      font-family: 'Noto Kufi Arabic', sans-serif;
+      font-size: clamp(26px, 5vw, 40px); font-weight: 900;
+      color: #FAFAFA; line-height: 1.3; margin-bottom: 18px;
+    }
+    .article-subtitle {
+      font-size: 17px; color: #777; font-weight: 300;
+      line-height: 1.8; margin-bottom: 24px;
+    }
+    .article-meta {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 12px; color: #555;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .meta-dot { color: #333; }
+
+    .article-body {
+      max-width: 700px; margin: 0 auto; padding: 40px 28px 80px;
+    }
+    .article-body p {
+      font-size: 16px; line-height: 2; color: #BEBEBE;
+      margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-family: 'Noto Kufi Arabic', sans-serif;
+      font-size: 22px; font-weight: 800; color: #F0F0F0;
+      margin: 48px 0 18px; line-height: 1.4;
+    }
+    .article-body h3 {
+      font-size: 18px; font-weight: 700; color: #E0E0E0;
+      margin: 36px 0 14px;
+    }
+    .article-body strong { color: #E8E8E8; font-weight: 700; }
+
+    .pullquote {
+      margin: 40px 0;
+      padding: 24px 28px;
+      border-right: 3px solid #EF4444;
+      background: rgba(239,68,68,0.04);
+      border-radius: 0 12px 12px 0;
+      font-size: 17px; font-weight: 500;
+      color: #F0A0A0; line-height: 1.8;
+    }
+
+    .key-point {
+      margin: 32px 0;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+    .key-point-label {
+      font-size: 11px; font-weight: 700; color: #6366F1;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .key-point p { font-size: 14px; margin-bottom: 0; color: #aaa; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 32px 0;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Noto Kufi Arabic', sans-serif;
+      font-size: 22px; font-weight: 900; color: #EF4444;
+      display: block; margin-bottom: 4px;
+    }
+    .stat-label { font-size: 11px; color: #666; }
+
+    .divider {
+      text-align: center; margin: 48px 0; color: #333;
+      font-size: 18px; letter-spacing: 12px;
+    }
+
+    .article-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 48px; padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .tag-pill {
+      font-size: 11px; color: #666;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    .article-cta {
+      margin-top: 48px; text-align: center;
+      padding: 40px 24px; border-radius: 16px;
+      border: 1px solid rgba(99,102,241,0.12);
+      background: rgba(99,102,241,0.03);
+    }
+    .article-cta p { font-size: 14px; color: #777; margin-bottom: 16px; }
+    .article-cta a {
+      display: inline-block; font-family: 'Tajawal', sans-serif;
+      font-size: 13px; font-weight: 700; color: #06060C;
+      background: #6366F1; padding: 10px 28px; border-radius: 8px;
+      text-decoration: none; transition: transform 0.2s;
+    }
+    .article-cta a:hover { transform: translateY(-1px); }
+
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 28px 0; margin-top: 40px;
+    }
+    .footer-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 6px; }
+    .footer-brand .logo { color: #6366F1; font-size: 16px; }
+    .footer-brand .name { font-weight: 700; font-size: 14px; color: #E0E0E0; }
+    .footer-copy { font-size: 11px; color: #444; }
+
+    @media (max-width: 600px) {
+      .article-header { padding: 100px 20px 32px; }
+      .article-body { padding: 32px 20px 60px; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-logo">◎</span>
+        <span class="nav-name">مدار</span>
+      </a>
+      <a href="index.html" class="nav-back">→ العودة للرئيسية</a>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="article-tag">تحقيق</div>
+    <h1 class="article-title">DeepSeek تسرق عقل Claude — قصة ١٦ مليون محادثة مزيفة</h1>
+    <p class="article-subtitle">
+      ثلاثة مختبرات صينية أنشأت ٢٤ ألف حساب وهمي لاستنزاف قدرات Claude — ليس بيانات المستخدمين، بل ذكاء النموذج نفسه.
+    </p>
+    <div class="article-meta">
+      <span>مدار</span>
+      <span class="meta-dot">·</span>
+      <span>١٨ مارس ٢٠٢٦</span>
+      <span class="meta-dot">·</span>
+      <span>٨ دقائق قراءة</span>
+    </div>
+  </header>
+
+  <article class="article-body">
+
+    <p>
+      في ٢٣ فبراير ٢٠٢٦، نشرت Anthropic — الشركة المطوّرة لـ Claude — تقريراً أمنياً مفصّلاً يكشف عن حملات سرقة منظّمة استهدفت نموذجها. المتهمون: <strong>DeepSeek، وMoonshot AI، وMiniMax</strong> — ثلاثة مختبرات ذكاء اصطناعي صينية.
+    </p>
+
+    <p>
+      لكن قبل أن نغرق في التفاصيل، خلونا نوضّح نقطة جوهرية: <strong>ما انسرق هو قدرات Claude الذهنية — لا بيانات المستخدمين.</strong> الهجوم لم يستهدف محادثاتك أو معلوماتك الشخصية. بل استهدف "عقل" النموذج نفسه.
+    </p>
+
+    <h2>الأرقام تتكلم</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-num">٢٤,٠٠٠</span>
+        <span class="stat-label">حساب مزيف</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">١٦M+</span>
+        <span class="stat-label">محادثة مع Claude</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">٣</span>
+        <span class="stat-label">مختبرات صينية</span>
+      </div>
+    </div>
+
+    <h2>ما هو "التقطير" وكيف يعمل؟</h2>
+
+    <p>
+      التقطير (Distillation) تقنية معروفة ومشروعة في عالم الذكاء الاصطناعي. الفكرة بسيطة: تأخذ نموذجاً قوياً ("المعلّم") وتجعل نموذجاً أصغر ("الطالب") يتعلّم من إجاباته. شركات كثيرة تستخدم هذه الطريقة لتصغير نماذجها الخاصة.
+    </p>
+
+    <p>
+      المشكلة تبدأ عندما يستخدم المنافس هذه التقنية على نموذجك <strong>بدون إذنك</strong>. بدل ما يستثمر سنوات وملايير الدولارات في البحث والتطوير، يرسل ملايين الأسئلة الذكية لنموذجك ويسجّل الإجابات ليدرّب نموذجه عليها. نسخ واجبات بمستوى صناعي.
+    </p>
+
+    <div class="pullquote">
+      سؤال واحد يبدو بريئاً. لكن عندما يتكرر عشرات الآلاف من المرات عبر مئات الحسابات المنسّقة ويستهدف نفس القدرة بالتحديد — النمط يصبح واضحاً.
+    </div>
+
+    <h2>كيف نفّذوها؟</h2>
+
+    <p>
+      Anthropic لا تبيع خدمات Claude في الصين لأسباب أمنية وقانونية. فكيف وصلت هذه المختبرات؟ عبر ما سمّته Anthropic بنية "الهيدرا" — شبكات وسيطة تعيد بيع الوصول لـ Claude عبر آلاف الحسابات المزيفة الموزّعة على منصات مختلفة. إذا حُظر حساب، يحل محله آخر فوراً.
+    </p>
+
+    <p>
+      شبكة وسيطة واحدة كانت تدير أكثر من <strong>٢٠,٠٠٠ حساب مزيف في نفس الوقت</strong>، وتخلط بين حركة التقطير وطلبات عملاء حقيقيين لتصعيب الكشف.
+    </p>
+
+    <h2>ماذا سرق كل مختبر؟</h2>
+
+    <h3>DeepSeek — ١٥٠,٠٠٠+ محادثة</h3>
+    <p>
+      ركّزت على قدرات المنطق والاستدلال. في أسلوب لافت، كانت تطلب من Claude أن <strong>يتخيّل عملية تفكيره الداخلية ويكتبها خطوة بخطوة</strong> — مما يولّد بيانات تدريب لسلاسل التفكير (chain-of-thought) بحجم صناعي. كما طلبت منه إنتاج بدائل آمنة من الرقابة لأسئلة سياسية حساسة عن المعارضين والأنظمة الاستبدادية.
+    </p>
+
+    <h3>Moonshot AI — ٣.٤ مليون+ محادثة</h3>
+    <p>
+      استهدفت التفكير الوكيلي (agentic reasoning) واستخدام الأدوات، والبرمجة وتحليل البيانات، وتطوير وكلاء الحاسب، والرؤية الحاسوبية.
+    </p>
+
+    <h3>MiniMax — ١٣ مليون+ محادثة</h3>
+    <p>
+      الأكبر حجماً. استهدفت البرمجة الوكيلية واستخدام الأدوات. والأخطر: عندما أطلقت Anthropic نموذجاً جديداً، حوّلت MiniMax نصف حركتها خلال <strong>٢٤ ساعة فقط</strong> لاستخراج قدرات النظام الجديد.
+    </p>
+
+    <div class="divider">· · ·</div>
+
+    <h2>لماذا هذا خطير؟</h2>
+
+    <p>
+      ليس فقط لأنه سرقة ملكية فكرية. Anthropic تحذّر من أن النماذج المقطّرة بشكل غير قانوني <strong>تفتقر لحواجز الأمان</strong> الموجودة في النموذج الأصلي. هذا يعني أن قدرات متقدمة في البرمجة والاستدلال يمكن أن تُستخدم بدون أي ضوابط — في عمليات سيبرانية، أو حملات تضليل، أو حتى أنظمة مراقبة جماعية.
+    </p>
+
+    <p>
+      Anthropic تقول أيضاً إن هذه الهجمات تقوّض منطق قيود تصدير الرقائق الأمريكية: التقدم السريع الذي تظهره بعض المختبرات الصينية ليس دليلاً على أن القيود لا تعمل — بل دليل على أن السرقة تعمل.
+    </p>
+
+    <div class="key-point">
+      <div class="key-point-label">نقطة جوهرية</div>
+      <p>OpenAI أيضاً أبلغت المشرّعين الأمريكيين في نفس الشهر بأن DeepSeek استخدمت التقطير لنسخ منتجاتها. القضية ليست خاصة بـ Anthropic — بل هي أزمة صناعة بأكملها.</p>
+    </div>
+
+    <h2>كيف ردّت Anthropic؟</h2>
+
+    <p>
+      الشركة أعلنت عن استراتيجية متعددة المحاور تشمل: بناء أنظمة تصنيف سلوكي لاكتشاف أنماط التقطير في حركة الـ API، وتبادل المؤشرات التقنية مع مختبرات أخرى ومزودي الخدمات السحابية والجهات الرسمية، وتشديد ضوابط الوصول.
+    </p>
+
+    <p>
+      لكن Anthropic اعترفت بوضوح: <strong>لا شركة تستطيع حل هذا بمفردها.</strong> المطلوب تنسيق على مستوى الصناعة، ومزودي السحابة، وصانعي السياسات.
+    </p>
+
+    <h2>وماذا عن بياناتك؟</h2>
+
+    <p>
+      مرة أخرى: <strong>بياناتك الشخصية لم تُسرق.</strong> ما حدث هو أن جهات خارجية استغلّت حسابات مزيفة لاستخراج "المعرفة" و"أسلوب التفكير" من Claude — وليس محادثات المستخدمين الحقيقيين. الهجوم كان موجّهاً للنموذج كمنتج فكري، لا كقاعدة بيانات شخصية.
+    </p>
+
+    <div class="key-point">
+      <div class="key-point-label">خلاصة مدار</div>
+      <p>ما كشفته Anthropic ليس مجرد خرق أمني — بل دليل موثّق على أن جزءاً من التقدم السريع لبعض نماذج الذكاء الاصطناعي الصينية جاء عبر نسخ منظّم من النماذج الأمريكية. السؤال الآن: هل ستتحرّك الصناعة والحكومات بالسرعة الكافية؟</p>
+    </div>
+
+    <div class="article-tags">
+      <span class="tag-pill">DeepSeek</span>
+      <span class="tag-pill">Anthropic</span>
+      <span class="tag-pill">Claude</span>
+      <span class="tag-pill">تقطير</span>
+      <span class="tag-pill">أمن سيبراني</span>
+      <span class="tag-pill">الصين</span>
+      <span class="tag-pill">تحقيق</span>
+    </div>
+
+    <div class="article-cta">
+      <p>تابع مدار على X لتحليلات أسبوعية من المصدر.</p>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer">@madar_ai ↗</a>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo">◎</span>
+        <span class="name">مدار</span>
+      </div>
+      <p class="footer-copy">© ٢٠٢٦ مدار — تحليل لا نقل</p>
+    </div>
+  </footer>
+
+</body>
+</html>
